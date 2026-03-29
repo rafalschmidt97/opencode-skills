@@ -28,19 +28,6 @@ OpenCode skills live in two directories:
 Each entry in `skills/` is a **symlink** whose target is the directory inside the cloned repo
 that directly contains skill subdirectories (each with a `SKILL.md`).
 
-### Current inventory for reference
-
-| Symlink name | Symlink target (relative to repo root) | Repo URL |
-|---|---|---|
-| `agents-skills-catalog` | `SKILLS` | `github.com/allegro-fintech/agents-skills-catalog` |
-| `anthropics-skills` | `skills` | `github.com/anthropics/skills` |
-| `azure-skills` | `.github/plugins/azure-skills/skills` | `github.com/microsoft/azure-skills` |
-| `opencode-skills` | `.` (repo root) | `github.com/rafalschmidt97/opencode-skills` |
-| `platform-agents-skills-catalog` | `SKILLS` | `github.com/allegro-fintech/platform-agents-skills-catalog` |
-| `platform-zetatech-agents-skills-catalog` | `SKILLS` | `github.com/allegro-fintech/platform-zetatech-agents-skills-catalog` |
-| `sessfind` | `skills` | `github.com/letsdev-it/sessfind` |
-
-As shown, there is no standard layout — each repo puts its skill directories in a different place.
 
 ## Install a Skill Repo
 
