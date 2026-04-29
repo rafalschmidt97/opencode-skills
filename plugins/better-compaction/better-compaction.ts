@@ -120,6 +120,7 @@ export const BetterCompactionPlugin: Plugin = async ({ client, directory }) => {
 				// Walk messages in reverse (most recent first)
 				let compactedContent = ""
 				for (const msg of [...messages].reverse()) {
+					if (msg.role && msg.role !== "assistant") continue
 					const text = extractTextFromParts(msg.parts)
 					if (text.includes("## Goal") && text.includes("## Progress")) {
 						compactedContent = text
