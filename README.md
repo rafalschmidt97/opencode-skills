@@ -68,12 +68,14 @@ This creates symlinks in `~/.config/opencode/plugins/` pointing back to the repo
 | Skill | Description |
 |---|---|
 | [install-skill-repo](SKILLS/tooling/install-skill-repo/) | Install, list, update, or remove OpenCode skill repositories |
+| [agent-browser](SKILLS/tooling/agent-browser/) | Browser automation CLI for AI agents |
 
 ## Plugins
 
 | Plugin | Description |
 |---|---|
 | [better-compaction](plugins/better-compaction/) | Custom compaction prompt that preserves critical context + writes handoff files to `.opencode/handoffs/` |
+| [notify](plugins/notify/) | Time-based notification routing: macOS native during work hours, push via ntfy after hours |
 
 ## Repository Structure
 
@@ -84,9 +86,10 @@ opencode-skills/
 │   ├── development/        # Code-focused skills
 │   ├── research/           # Investigation and search skills
 │   ├── writing/            # Content creation and planning skills
-│   └── tooling/            # Agent tooling skills
+│   └── tooling/            # Agent tooling and browser automation skills
 ├── plugins/
-│   └── better-compaction/  # OpenCode plugins (symlinked via install.sh)
+│   ├── better-compaction/  # Custom compaction with handoff files
+│   └── notify/             # Push notification routing (ntfy + macOS native)
 ├── install.sh              # Plugin installer (symlinks to ~/.config/opencode/plugins/)
 └── README.md
 ```
