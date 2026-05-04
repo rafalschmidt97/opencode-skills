@@ -1,0 +1,22 @@
+{
+  "mode": "schedule",
+  "weekendChannel": "local",
+  "pushWhenLocked": true,
+  "schedule": [
+    { "start": "06:00", "end": "09:00", "channel": "push" },
+    { "start": "09:00", "end": "17:00", "channel": "local" },
+    { "start": "17:00", "end": "22:00", "channel": "push" },
+    { "start": "22:00", "end": "06:00", "channel": "silent" }
+  ],
+  "push": {
+    "service": "ntfy",
+    "sshHint": "open blink and write \"ssh w\"",
+    "clickUrl": "ssh://w"
+  },
+  "sounds": {
+    "idle": "Glass",
+    "error": "Basso",
+    "permission": "Submarine",
+    "question": "Submarine"
+  }
+}
