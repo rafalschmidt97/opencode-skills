@@ -1,0 +1,42 @@
+services:
+  searxng:
+    container_name: searxng
+    image: docker.io/searxng/searxng:latest
+    restart: unless-stopped
+    networks:
+      - searxng
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8080/
+      - BIND_ADDRESS=0.0.0.0:8080
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+  mcp:
+    container_name: searxng-mcp
+    image: ghcr.io/aicrafted/searxng-mcp:latest
+    restart: unless-stopped
+    networks:
+      - searxng
+    ports:
+      - "127.0.0.1:${SEARXNG_MCP_PORT:-32123}:${SEARXNG_MCP_PORT:-32123}"
+    environment:
+      - SEARXNG_URL=http://searxng:8080
+      - MCP_TRANSPORT=http
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=${SEARXNG_MCP_PORT:-32123}
+    depends_on:
+      searxng:
+        condition: service_started
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+networks:
+  searxng:

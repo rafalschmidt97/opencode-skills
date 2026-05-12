@@ -1,0 +1,9 @@
+{
+  "name": "gdocs-to-markdown",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "turndown": "^7.2.0",
+    "turndown-plugin-gfm": "^1.0.2"
+  }
+}
