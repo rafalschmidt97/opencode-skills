@@ -18,18 +18,18 @@ This registers the repo and OpenCode discovers all `SKILL.md` files automaticall
 
 ### Plugins
 
-Plugins require an extra step since OpenCode doesn't auto-discover plugins from skill repos.
+Plugins require an extra step since OpenCode doesn't auto-discover plugins from skill repos. The install script creates symlinks pointing back to the clone, so **the clone must be in a persistent location** (not a temp directory).
 
 ```bash
-# Clone (or use existing skill repo clone)
-git clone https://github.com/rafalschmidt97/opencode-skills.git
-cd opencode-skills
+# Clone into a persistent location (e.g. the OpenCode skills directory)
+git clone https://github.com/rafalschmidt97/opencode-skills.git \
+  ~/.config/opencode/skills/opencode-skills
 
 # Symlink plugins to OpenCode's plugin directory
-./install.sh
+~/.config/opencode/skills/opencode-skills/install.sh
 ```
 
-This creates symlinks in `~/.config/opencode/plugins/` pointing back to the repo, so `git pull` keeps them updated.
+This creates symlinks in `~/.config/opencode/plugins/` pointing back to the repo, so `git pull` keeps them updated. If you delete or move the clone, the symlinks will break.
 
 ## Available Skills
 
