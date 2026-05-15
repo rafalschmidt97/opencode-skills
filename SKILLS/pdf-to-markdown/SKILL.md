@@ -8,7 +8,7 @@ description: >-
   its content as text or markdown. Handles tables, headers, lists, and images.
 compatibility: Requires Python 3.10+ and uv. No GPU needed.
 metadata:
-  author: rafalschmidt97
+
   version: "1.0"
 allowed-tools: Bash(python*) Bash(uv:*) Bash(test:*) Read Write
 ---

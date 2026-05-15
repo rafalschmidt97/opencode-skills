@@ -13,7 +13,6 @@ description: >-
 compatibility: >-
   Requires Docker Desktop or Podman (with compose support) and Node.js 18+.
 metadata:
-  author: adam.trepka
   version: "1.0"
 allowed-tools: Bash(node:*) Bash(docker:*) Bash(podman:*)
 ---

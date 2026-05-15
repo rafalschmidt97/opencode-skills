@@ -8,7 +8,6 @@ description: >-
   Authenticates via gcloud CLI. Supports both user credentials and ADC.
 compatibility: Requires Node.js 18+, gcloud CLI. Network access to Google APIs. Run install.js first.
 metadata:
-  author: internal
   version: "1.0"
 allowed-tools: Bash(node:*) Bash(gcloud:*) Read
 ---

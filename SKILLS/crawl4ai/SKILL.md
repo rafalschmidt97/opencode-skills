@@ -13,7 +13,6 @@ description: >-
 compatibility: >-
   Requires Podman or Docker. Container image: unclecode/crawl4ai:latest.
 metadata:
-  author: rafal.schmidt
   version: "1.0"
 allowed-tools: Bash(podman:*) Bash(docker:*) Bash(curl:*) Bash(node:*)
 ---

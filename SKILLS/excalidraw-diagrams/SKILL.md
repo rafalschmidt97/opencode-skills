@@ -11,7 +11,6 @@ description: >-
   browser.
 compatibility: Requires Node.js 18+. Run install.js first to install excalidraw-cli.
 metadata:
-  author: marcin.liszewski@allegro.com
   version: "1.1"
 allowed-tools: Bash(node:*) Bash(npx:*) Bash(open:*) Read Write Edit Create
 ---

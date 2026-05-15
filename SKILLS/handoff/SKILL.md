@@ -7,7 +7,7 @@ description: >-
   capture the current session state so a fresh agent can continue the work.
 argument-hint: "What will the next session be used for?"
 metadata:
-  author: mattpocock
+
   version: "1.0"
 allowed-tools: Bash(mktemp:*) Read Write
 ---
