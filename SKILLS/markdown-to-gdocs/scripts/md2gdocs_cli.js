@@ -30,6 +30,30 @@ const path = require("path");
 const markdownIt = require("markdown-it");
 const md = markdownIt({ html: true, linkify: true, typographer: false });
 
+function postProcessHtmlForGdocs(html) {
+  return html.replace(/<pre><code(?:\s+class="language-(\w+)")?>([\s\S]*?)<\/code><\/pre>/g,
+    (match, lang, code) => {
+      let text = code
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"');
+      text = text.replace(/\n$/, '');
+      const lines = text.split('\n').map(line => {
+        return line
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/ /g, '&nbsp;');
+      });
+      const langRow = lang
+        ? `<tr><td style="background-color:#e0e0e0; padding:4px 12px; font-family:Arial,sans-serif; font-size:8pt; color:#555; border:1px solid #ddd; border-bottom:none;"><b>${lang}</b></td></tr>`
+        : '';
+      return `<table style="width:100%; border-collapse:collapse; margin:10px 0;">\n${langRow}\n<tr><td style="background-color:#f5f5f5; border:1px solid #ddd; padding:12px;">\n<span style="font-family:'Courier New',monospace; font-size:9pt; line-height:1.4;">\n${lines.join('<br>\n')}\n</span>\n</td></tr>\n</table>`;
+    }
+  );
+}
+
 function markdownToHtml(markdown) {
   const body = md.render(markdown);
   return [
@@ -335,7 +359,8 @@ async function cmdUpload(mdFile, title, folderId) {
   }
 
   const markdown = fs.readFileSync(mdFile, "utf-8");
-  const html = markdownToHtml(markdown);
+  let html = markdownToHtml(markdown);
+  html = postProcessHtmlForGdocs(html);
 
   const docTitle = title || path.basename(mdFile, path.extname(mdFile)).replace(/[-_]/g, " ");
 
@@ -386,7 +411,8 @@ async function cmdUpdate(urlOrId, mdFile) {
   }
 
   const markdown = fs.readFileSync(mdFile, "utf-8");
-  const html = markdownToHtml(markdown);
+  let html = markdownToHtml(markdown);
+  html = postProcessHtmlForGdocs(html);
 
   // Drive API: update file content with media upload + mimeType conversion
   // PATCH https://www.googleapis.com/upload/drive/v3/files/{fileId}?uploadType=media
