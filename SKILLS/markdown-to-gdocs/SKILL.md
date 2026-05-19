@@ -42,18 +42,29 @@ node <SKILL_DIR>/install.js
 
 ## Authentication
 
-The skill supports two authentication methods with automatic fallback:
+**Use the CLI's built-in auth command.** It runs `gcloud auth login` with the
+correct scopes (including Google Drive) in one step:
 
-### Option 1: User credentials (recommended — works without a GCP project)
+```bash
+$CLI auth login
+```
+
+This is the recommended method. It works without a GCP project.
+
+**Why not plain `gcloud auth login`?** Because `gcloud auth login` alone does
+NOT include Google Drive scope. The upload/update will fail with 403
+`ACCESS_TOKEN_SCOPE_INSUFFICIENT`. You must either use `$CLI auth login` or
+explicitly pass `--enable-gdrive-access`:
 
 ```bash
 gcloud auth login --enable-gdrive-access
 ```
 
-This opens a browser for Google sign-in and grants Drive write access. No GCP
-project configuration needed.
+### Fallback: Application Default Credentials (ADC)
 
-### Option 2: Application Default Credentials (ADC)
+If user credentials are unavailable, the CLI falls back to ADC with a quota
+project header derived from `gcloud config get-value project` or the
+`GOOGLE_CLOUD_QUOTA_PROJECT` environment variable.
 
 ```bash
 gcloud auth application-default login --scopes=openid,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/drive
@@ -61,18 +72,11 @@ gcloud auth application-default login --scopes=openid,https://www.googleapis.com
 
 This requires a default gcloud project with Drive API enabled.
 
-### Fallback behavior
+### Known limitation: `auth status` does not check scopes
 
-The CLI prefers user credentials. If unavailable, it falls back to ADC with a
-quota project header derived from `gcloud config get-value project` or the
-`GOOGLE_CLOUD_QUOTA_PROJECT` environment variable.
-
-For most users, `gcloud auth login --enable-gdrive-access` is all that's needed.
-
-Or use the skill's built-in auth command:
-```bash
-$CLI auth login
-```
+`$CLI auth status` reports `authenticated` if a token exists, even if the token
+lacks Drive scope. A successful `auth status` does not guarantee uploads will
+work. If uploads fail with 403, re-run `$CLI auth login`.
 
 ## CLI Reference
 
@@ -145,7 +149,10 @@ All commands output JSON to stdout. Progress messages go to stderr.
 
 When the user asks to upload or create a Google Doc from Markdown:
 
-1. **Check auth**: Run `auth status`. If not authenticated, run `auth login` first.
+1. **Ensure auth**: On first use in a session, run `$CLI auth login`. Do NOT
+   rely on `auth status` alone — it cannot verify that the token has Drive
+   scope (see Authentication above). If a previous upload succeeded in this
+   session, you can skip this step.
 2. **Identify the file**: The user provides a path to a local `.md` file.
 3. **Upload or update**:
    - To **create a new doc**: `upload <file.md> --title "Title"`.
@@ -165,10 +172,10 @@ When the user asks to upload or create a Google Doc from Markdown:
 
 ## Error handling
 
-- **Not authenticated**: Run `auth login`. This runs `gcloud auth login --enable-gdrive-access`.
-- **401 Unauthorized**: Credentials expired. Re-run `auth login`.
-- **403 Forbidden (quota project)**: You're using ADC without a valid quota project. Run `gcloud auth login --enable-gdrive-access`.
-- **403 Forbidden (access)**: User lacks write access. Check Google Drive permissions.
+- **403 `ACCESS_TOKEN_SCOPE_INSUFFICIENT`**: Most common error. The gcloud token exists but lacks Drive scope. Fix: run `$CLI auth login` (or `gcloud auth login --enable-gdrive-access`). Plain `gcloud auth login` does NOT include Drive scope.
+- **400 "Project not found or deleted"**: The quota project set in `gcloud config` no longer exists or the account lacks `serviceusage.services.use` on it. Fix: run `$CLI auth login` to use user credentials (no quota project needed), or set a valid project with `gcloud config set project PROJECT_ID`.
+- **401 Unauthorized**: Credentials expired. Re-run `$CLI auth login`.
+- **403 Forbidden (access)**: User lacks write access to the specific Google Doc. Check Google Drive sharing permissions.
 - **File not found**: Check the markdown file path.
 - **gcloud not found**: Install gcloud CLI from https://cloud.google.com/sdk/docs/install.
 - **Network error**: Check internet connectivity.
