@@ -43,10 +43,6 @@ If a GitHub org is configured in AGENTS.md, scope searches to that org.
 - If `board` is another URL: note it for the user to check manually
 - Focus on: items In Progress, items with no recent updates (stalled), items recently completed
 
-### Track D: Calendar Context (optional)
-- If AGENTS.md specifies a calendar source, check for upcoming meetings with this person
-- Note the next scheduled 1:1 date/time
-
 ---
 
 ## Report Structure

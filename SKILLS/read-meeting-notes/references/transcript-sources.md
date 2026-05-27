@@ -11,7 +11,6 @@ Add this to your AGENTS.md to configure transcript processing:
 - **Transcript path**: /path/to/transcripts/folder (for local/synced sources)
 - **People directory**: areas/{context}/people/ (vault path)
 - **Meetings directory**: areas/{context}/meetings/ (vault path)
-- **Calendar provider**: google | microsoft365 | none
 - **Auto-route**: true | false (skip confirmation for known patterns)
 - **Default meeting type**: sync (fallback when type can't be determined)
 ```

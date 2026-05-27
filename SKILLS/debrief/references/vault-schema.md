@@ -67,7 +67,6 @@ The skill reads AGENTS.md for org-specific settings:
 - **GitHub org**: `org-name` (scopes searches)
 - **People directory**: `areas/context/people/` (vault path to person folders)
 - **Board tool**: github-projects | azure-boards | linear | jira
-- **Calendar**: google | microsoft365 | none
 ```
 
 If AGENTS.md doesn't specify these, the skill asks the user or discovers from vault structure.
