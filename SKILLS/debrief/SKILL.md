@@ -30,9 +30,8 @@ Once you have the person's profile, gather data from these independent sources I
 - Any linked project notes
 
 ### Track B: GitHub Activity (requires `github` field in profile)
-Use `gh` CLI to pull activity for the person's GitHub handle:
-- **Recent PRs** (last 7-14 days): `gh search prs --author={handle} --sort=updated --limit=10`
-- **Recent commits**: Use GitHub Search API or `gh` to find commits in the org
+Use `gh` CLI to pull activity for the person's GitHub handle since the last call note date (fall back to 7 days if unknown):
+- **Recent PRs**: `gh search prs --author={handle} --sort=updated --limit=10`
 - **Issues assigned**: `gh search issues --assignee={handle} --state=open --sort=updated --limit=10`
 - **Reviews given**: `gh search prs --reviewed-by={handle} --sort=updated --limit=5`
 
@@ -49,21 +48,18 @@ If a GitHub org is configured in AGENTS.md, scope searches to that org.
 
 Produce the debrief in this order:
 
-### 1. Quick Context
-One paragraph summary: who this person is, what they're working on, and the current dynamic (from profile + recent notes).
+### 1. Since Last Time
 
-### 2. Since Last Time
 - Open action items from previous call notes (checkbox items marked incomplete)
 - Commitments YOU made to them that need follow-up
 - Themes or concerns that surfaced across recent conversations
 
-### 3. Their Recent Work (from GitHub/Board)
-- Key PRs merged or in review (with links)
-- Issues completed vs still open
+### 2. Their Recent Work (from GitHub/Board)
+- Key PRs merged or in review (grouped by theme, not listed individually unless notable)
 - Board items: what moved, what's stalled
-- Any notable patterns (e.g., lots of reviews but few own PRs, or concentrated in one repo)
+- Notable patterns (e.g., lots of reviews but few own PRs, concentrated in one area, burst of activity)
 
-### 4. Suggested Agenda
+### 3. Suggested Agenda
 5-7 ordered talking points. Structure:
 1. **Their topics first** — leave space for what they bring
 2. **Follow-ups** — action items from last time
@@ -73,7 +69,7 @@ One paragraph summary: who this person is, what they're working on, and the curr
 
 For each talking point, include a suggested question or opener (concrete wording, not abstract).
 
-### 5. Manager Notes (Private)
+### 4. Manager Notes (Private)
 - Communication style reminders (from personality profile)
 - Blind spots to watch for
 - Things NOT to say or patterns to avoid with this person
@@ -84,6 +80,7 @@ For each talking point, include a suggested question or opener (concrete wording
 
 - Use markdown with clear headers
 - Link to specific PRs, issues, board items where relevant
+- **Don't restate basic context the manager already knows** (role, team, tenure, org position). The manager meets this person weekly — skip "who they are" and go straight to what's actionable.
 - Keep it concise — this is a prep doc, not an essay
 - If data is unavailable (no GitHub handle, no board), skip that section gracefully and note what's missing
 
