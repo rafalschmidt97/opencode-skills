@@ -56,6 +56,7 @@ This creates symlinks in `~/.config/opencode/plugins/` pointing back to the repo
 | [self-audit](SKILLS/self-audit/) | Verify accuracy after bulk operations and aggregations |
 | [sessfind](SKILLS/sessfind/) | Search past AI sessions across Copilot, Claude Code, OpenCode, Cursor |
 | [skill-creator](SKILLS/skill-creator/) | Create, test, and optimize skill descriptions (multi-backend LLM support) |
+| [slack-dm-sender](SKILLS/slack-dm-sender/) | Send Slack web DMs via headed agent-browser, including one-by-one batch messages |
 | [tdd](SKILLS/tdd/) | Test-driven development with red-green-refactor loop |
 | [write-a-prd](SKILLS/write-a-prd/) | Create a PRD through user interview and codebase exploration |
 
